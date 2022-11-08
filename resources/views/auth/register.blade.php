@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="{{ asset('assets/css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/register.css') }}">
     <title> Menu register </title>
 </head>
 
