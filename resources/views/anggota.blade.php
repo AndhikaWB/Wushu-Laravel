@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Biodata Anggota Wushu Naga Mas Lampung</title>
+  <title>Daftar Anggota</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -32,7 +32,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Biodata Anggota Wushu Naga Mas Lampung</h1>
+              <h1>Daftar Anggota Wushu Naga Mas Lampung</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -50,32 +50,37 @@
               <div class="card">
                 <div class="card-header">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-                    Tambah Biodata Anggota
+                    Tambah Data Anggota
                   </button>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th>Nama</th>
-                        <th>Nama Wali</th>
-                        <th>Nomor Hp</th>
-                        <th>Nomor Hp Wali</th>
+                        <th>Jabatan</th>
+                        <th>Sabuk</th>
+                        <th>Tanggal Lahir</th>
                         <th>Alamat</th>
-                        <th>Status</th>
+                        <th>Prestasi</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
+
+                      @foreach ($anggota as $a)
                       <tr>
-                        <td>Paijo</td>
-                        <td>bejo
+                        <td>{{ $a->name }}</td>
+                        <td>{{ $a->is_admin ? 'Pelatih' : 'Anggota' }}</td>
+                        <td>{{ $a->sabuk }}</td>
+                        <td>{{ $a->tgl_lahir }}</td>
+                        <td>{{ $a->alamat }}</td>
+                        <td>
+                        @foreach ($a->prestasi as $p)
+                          $p<br>
+                        @endforeach
                         </td>
-                        <td>081916767555</td>
-                        <td> 08977625257</td>
-                        <td>Kampung Baru</td>
-                        <td>Aktif</td>
                         <td>
                           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit">
                             Edit
@@ -88,11 +93,13 @@
                           </button>
                         </td>
                       </tr>
+                      @endforeach
+                      
                       <div class="modal fade" id="modal-edit">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h4 class="modal-title">Edit Biodata Anggota</h4>
+                              <h4 class="modal-title">Edit Data</h4>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -102,27 +109,27 @@
                                 <div class="card-body">
                                   <div class="form-group">
                                     <label for="exampleInputEmail1">Nama Anggota</label>
-                                    <input type="text" class="form-control" name="nama" placeholder=" Nama Anggota">
+                                    <input type="text" class="form-control" name="nama" placeholder="Nama Anggota">
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleInputPassword1">Nama Wali</label>
-                                    <input type="text" class="form-control" name="wali" placeholder=" Nama Wali">
+                                    <label for="exampleInputPassword1">Jabatan</label>
+                                    <input type="text" class="form-control" name="jabatan" placeholder="Jabatan">
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleInputPassword1">Nomor Hp</label>
-                                    <input type="number" class="form-control" name="nohp" placeholder=" Nomor Hp">
+                                    <label for="exampleInputPassword1">Warna Sabuk</label>
+                                    <input type="text" class="form-control" name="sabuk" placeholder="warna sabuk">
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleInputPassword1">Nomor Hp Wali</label>
-                                    <input type="number" class="form-control" name="nowali" placeholder=" Nomor Hp Wali">
+                                    <label for="exampleInputPassword1">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" name="tgl" placeholder="tanggal lahir">
                                   </div>
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">Alamat</label>
-                                    <input type="text" class="form-control" name="alamat" placeholder=" Alamat">
+                                    <input type="text" class="form-control" name="alamat" placeholder="Alamat">
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleInputPassword1">Status</label>
-                                    <input type="text" class="form-control" name="status" placeholder=" status">
+                                    <label for="exampleInputPassword1">Prestasi</label>
+                                    <input type="text" class="form-control" name="prestasi" placeholder="Prestasi">
                                   </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -143,7 +150,7 @@
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h4 class="modal-title">Hapus Biodata</h4>
+                              <h4 class="modal-title">Hapus Data</h4>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -152,8 +159,12 @@
                               <form action="" method="post">
                                 <div class="card-body">
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Apakah Anda Ingin Menghapus Biodata ini?</label>
-                                    <input type="text" class="form-control" name="namalomba" placeholder="Nama Anggota">
+                                    <label for="exampleInputEmail1">Apakah Anda Ingin Menghapus Data?</label>
+                                    <input type="text" class="form-control" name="nama" placeholder="Nama Anggota">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="exampleInputPassword1"></label>
+                                    <input type="text" class="form-control" name="jabatan" placeholder="Jabatan">
                                   </div>
 
                                 </div>
@@ -171,7 +182,6 @@
                         <!-- /.modal-dialog -->
                       </div>
                       <!-- /.modal -->
-
                       <div class="modal fade" id="modal-dokumen">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -227,15 +237,7 @@
               </div>
               <!-- /.card -->
 
-              </tbody>
-
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-
-          <!-- /.container-fluid -->
+              <!-- /.container-fluid -->
       </section>
       <!-- /.content -->
     </div>
@@ -243,59 +245,62 @@
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">
       </div>
-    </footer>
 
-    <div class="modal fade" id="modal-default">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Tambah Biodata Anggota</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Tambah Anggota</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="post">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nama Anggota</label>
+                    <input type="text" class="form-control" name="nama" placeholder="Masukan Nama Anggota">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Jabatan</label>
+                    <input type="text" class="form-control" name="jabatan" placeholder="Masukan Jabatan">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Warna Sabuk</label>
+                    <input type="text" class="form-control" name="sabuk" placeholder="Masukan warna sabuk">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Tanggal Lahir</label>
+                    <input type="date" class="form-control" name="tgl" placeholder="Masukan tanggal lahir">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Alamat</label>
+                    <input type="text" class="form-control" name="alamat" placeholder="Masukan Alamat">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Prestasi</label>
+                    <input type="text" class="form-control" name="prestasi" placeholder="Masukan Prestasi">
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+
           </div>
-          <div class="modal-body">
-            <form action="" method="post">
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Nama Anggota</label>
-                  <input type="text" class="form-control" name="nama" placeholder="Masukan Nama Anggota">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Nama Wali</label>
-                  <input type="text" class="form-control" name="wali" placeholder="Masukan Nama Wali">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Nomor Hp</label>
-                  <input type="number" class="form-control" name="nohp" placeholder="Masukan Nomor Hp">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Nomor Hp Wali</label>
-                  <input type="number" class="form-control" name="nowali" placeholder="Masukan Nomor Hp Wali">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Alamat</label>
-                  <input type="text" class="form-control" name="alamat" placeholder="Masukan Alamat">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Status</label>
-                  <input type="text" class="form-control" name="status" placeholder="Masukan status">
-                </div>
-              </div>
-              <!-- /.card-body -->
-
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-          </div>
-
+          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+      <!-- /.modal -->
+
+
+
+    </footer>
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">

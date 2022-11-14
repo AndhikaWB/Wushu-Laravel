@@ -42,7 +42,7 @@
             </div>
             <button type="submit">Login</button>
         <hr>
-        <p>Belum punya akun?<a href="{{ route('register') }}">Buat Akun</a></p>
+        <p>Belum punya akun? <a href="{{ route('register') }}">Buat Akun</a></p>
         </form>
     </div>
 </body>

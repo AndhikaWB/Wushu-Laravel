@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\AnggotaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +19,14 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/biodata', [App\Http\Controllers\HomeController::class, 'index'])->name('biodata');
-Route::get('/anggota', [App\Http\Controllers\HomeController::class, 'index'])->name('daftar_anggota');
+Route::get('/', [HomeController::class, 'index'])->middleware('auth');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/biodata', [BiodataController::class, 'index'])->middleware('auth')->name('biodata');
+Route::get('/anggota', [AnggotaController::class, 'index'])->middleware('auth')->name('anggota');
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
