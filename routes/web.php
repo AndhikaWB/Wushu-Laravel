@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\UjianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +20,21 @@ use App\Http\Controllers\AnggotaController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('/', function () {
+    return redirect()->route('home');
+});
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->middleware('auth');
+// Halaman utama dashboard
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+// Biodata diri, wali, dan dokumen
 Route::get('/biodata', [BiodataController::class, 'index'])->middleware('auth')->name('biodata');
-Route::get('/anggota', [AnggotaController::class, 'index'])->middleware('auth')->name('anggota');
+// Daftar anggota dan pelatih
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
+// Jadwal ujian
+Route::get('/ujian', [UjianController::class, 'index'])->middleware('auth')->name('ujian');
+Route::post('/ujian/edit', [UjianController::class, 'createOrUpdate'])->middleware('auth')->name('ujian_edit');
+Route::post('/ujian/hapus', [UjianController::class, 'delete'])->middleware('auth')->name('ujian_hapus');
+
+Route::get('/anggota', [AnggotaController::class, 'index'])->middleware('auth')->name('anggota');

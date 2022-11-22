@@ -46,7 +46,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="Jadwal Ujian.html" class="nav-link">
+                    <a href="{{ url('/ujian') }}" class="nav-link">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>
                             Jadwal Ujian
@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href={{ url('/biodata') }} class="nav-link">
+                    <a href="{{ url('/biodata') }}" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Biodata

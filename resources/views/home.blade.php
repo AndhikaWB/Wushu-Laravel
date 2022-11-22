@@ -129,6 +129,7 @@
 
               <!-- /.container-fluid -->
       </section>
+    </div>
 
 
 
@@ -136,8 +137,8 @@
       <!-- /.card -->
 
 
-      <footer class="main-footer">
-    </div>
+    <footer class="main-footer">
+    
     </footer>
 
 
