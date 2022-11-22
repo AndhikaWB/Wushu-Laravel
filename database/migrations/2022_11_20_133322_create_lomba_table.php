@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('biodata_ortu', function (Blueprint $table) {
+        Schema::create('lomba', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('nama_wali');
-            $table->string('no_hp');
+            $table->string('name');
+            $table->json('kategori')->nullable();
+            $table->string('tingkatan')->nullable();
+            $table->text('lokasi');
             $table->timestamps();
-
-            $table->foreign('username')
-              ->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('biodata_ortu');
+        Schema::dropIfExists('lomba');
     }
 };

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('biodata_ortu', function (Blueprint $table) {
+        Schema::create('ujian', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
-            $table->string('nama_wali');
-            $table->string('no_hp');
+            $table->dateTime('datetime_mulai');
+            $table->dateTime('datetime_akhir')->nullable();
             $table->timestamps();
 
             $table->foreign('username')
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('biodata_ortu');
+        Schema::dropIfExists('ujian');
     }
 };
