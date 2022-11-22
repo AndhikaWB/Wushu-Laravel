@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('peserta_lomba', function (Blueprint $table) {
+        Schema::create('peserta', function (Blueprint $table) {
             $table->id(); // Id lomba
             $table->string('username');
             $table->json('kategori');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peserta_lomba');
+        Schema::dropIfExists('peserta');
     }
 };

@@ -40,7 +40,6 @@ class UjianController extends Controller
 
         // Perbarui atau buat model baru
         $ujian = Ujian::where('username', '=', $username)->first();
-
         if (!$ujian) $ujian = new Ujian();
 
         $ujian->username = $username;

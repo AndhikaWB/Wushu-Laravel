@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_kegiatan')->nullable();
             $table->dateTime('datetime_mulai');
             $table->dateTime('datetime_akhir')->nullable();
             $table->boolean('is_lomba');

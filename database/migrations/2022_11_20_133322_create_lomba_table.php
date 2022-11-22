@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('lomba', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->json('kategori')->nullable();
-            $table->string('tingkatan')->nullable();
+            $table->string('nama_lomba');
+            $table->json('kategori');
+            $table->string('tingkatan');
             $table->text('lokasi');
             $table->timestamps();
         });
