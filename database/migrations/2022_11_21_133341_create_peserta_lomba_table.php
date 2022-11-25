@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('peserta', function (Blueprint $table) {
-            $table->id(); // Id lomba
+            $table->unsignedBigInteger('id'); // Id lomba
             $table->string('username');
             $table->json('kategori');
             $table->string('status');

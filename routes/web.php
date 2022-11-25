@@ -8,7 +8,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\UjianController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LombaController;
+use App\Http\Controllers\PesertaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +47,11 @@ Route::post('/kegiatan/hapus', [KegiatanController::class, 'delete'])->middlewar
 Route::get('/lomba', [LombaController::class, 'index'])->middleware('auth')->name('lomba');
 Route::post('/lomba/edit', [LombaController::class, 'createOrUpdate'])->middleware('auth')->name('lomba_edit');
 Route::post('/lomba/hapus', [LombaController::class, 'delete'])->middleware('auth')->name('lomba_hapus');
+
+// Daftar peserta
+Route::get('/peserta/{id}', [PesertaController::class, 'index'])->middleware('auth')->name('peserta');
+Route::post('/peserta/edit/{id}', [PesertaController::class, 'createOrUpdate'])->middleware('auth')->name('peserta_edit');
+Route::post('/peserta/hapus/{id}', [PesertaController::class, 'delete'])->middleware('auth')->name('peserta_hapus');
+
 
 Route::get('/anggota', [AnggotaController::class, 'index'])->middleware('auth')->name('anggota');

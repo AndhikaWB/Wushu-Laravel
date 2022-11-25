@@ -54,7 +54,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="table1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>Nama Lomba</th>
@@ -84,7 +84,7 @@
                               <div class="dropdown-menu" role="menu">
                                 <a class="dropdown-item edit-lomba" data-toggle="modal" data-target="#modal-edit">Edit</a>
                                 <a class="dropdown-item hapus-lomba" data-toggle="modal" data-target="#modal-hapus">Hapus</a>
-                                <a class="dropdown-item" href="peserta_lomba.html">Daftar Peserta</a>
+                                <a class="dropdown-item" href="{{ route('peserta', $lomba->id) }}">Daftar Peserta</a>
                               </div>
                             </div>
                           </td>
@@ -126,8 +126,7 @@
                                         <option value="Gunshu">Gunshu</option>
                                         <option value="Nangun">Nangun</option>
                                         <option value="Qiang">Qiang</option>
-                                        <option value="Duilian">Duilian
-                                        </option>
+                                        <option value="Duilian">Duilian</option>
                                       </select>
                                     </div>
                                   </div>
@@ -180,12 +179,8 @@
                                 @csrf
                                 <div class="card-body">
                                   <div class="form-group">
-                                    <label>Id Lomba</label>
-                                    <input readonly type="text" class="form-control" id="hapus-id" name="id">
-                                  </div>
-                                  <div class="form-group">
-                                    <label>Nama Lomba</label>
-                                    <input readonly type="text" class="form-control" id="hapus-nama-lomba" name="nama_lomba">
+                                    <label>Apakah Anda Yakin Ingin Menghapus Lomba Ini?</label>
+                                    <input type="hidden" class="form-control" id="hapus-id" name="id">
                                   </div>
 
                                 </div>
@@ -318,26 +313,15 @@
   <script src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
   <!-- AdminLTE App -->
   <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="{{ asset('dist/js/demo.js') }}"></script>
   <!-- Page specific script -->
   <script>
     $(function() {
-      $("#example1").DataTable({
+      $("#table1").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
+      }).buttons().container().appendTo('#table1_wrapper .col-md-6:eq(0)');
       // AW
       $('.select2-kategori').select2({
         tags: true,
@@ -364,14 +348,14 @@
           kategori_array.push($(this).text())
           // Bila array belum terdapat pada list kategori maka tambahkan kategori baru
           if (!$('#edit-kategori').find("option[value='" + $(this).text() + "']").length) {
-            let tag_baru = new Option($(this).text(), $(this).text(), true, true);
+            let tag_baru = new Option($(this).text(), $(this).text(), false, false);
             $('#edit-kategori').append(tag_baru).trigger('change');
           }
         })
         $('#edit-kategori').val(kategori_array).trigger('change')
 
         if (!$('#edit-tingkatan').find("option[value='" + children[1].textContent + "']").length) {
-          let tag_baru = new Option(children[1].textContent, children[1].textContent, true, true);
+          let tag_baru = new Option(children[1].textContent, children[1].textContent, false, false);
           $('#edit-tingkatan').append(tag_baru).trigger('change');
         }
         $('#edit-tingkatan').val(children[1].textContent).trigger('change')
@@ -380,7 +364,6 @@
         let parent = $(this).closest('tr')
         let children = parent.children('td')
         $('#hapus-id').val(parent.attr('data-val'))
-        $('#hapus-nama-lomba').val(children[0].textContent)
       });
     });
   </script>

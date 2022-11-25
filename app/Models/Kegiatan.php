@@ -42,7 +42,7 @@ class Kegiatan extends Model
         'id_lomba' => 'integer'
     ];
 
-    public function user() {
-        return $this->hasOne(User::class, 'username', 'username');
+    public function lomba() {
+        return $this->hasOne(Lomba::class, 'id', 'id_lomba');
     }
 }

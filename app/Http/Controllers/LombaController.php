@@ -31,11 +31,11 @@ class LombaController extends Controller
 
         // Validasi form
         $request->validate([
-            'id' => 'nullable|numeric',
-            'nama_lomba' => 'required',
+            'id' => 'nullable|integer',
+            'nama_lomba' => 'required|string',
             'kategori' => 'required|array',
-            'tingkatan' => 'required',
-            'lokasi' => 'required'
+            'tingkatan' => 'required|string',
+            'lokasi' => 'required|string'
         ]);
 
         // Perbarui atau buat model baru
@@ -57,10 +57,10 @@ class LombaController extends Controller
 
         // Validasi form
         $request->validate([
-            'id' => 'required|numeric',
+            'id' => 'required|integer',
         ]);
 
-        // Perbarui atau buat model baru
+        // Hapus model bila ditemukan
         $lomba = Lomba::where('id', '=', $id)->first();
         if ($lomba) $lomba->delete();
 
