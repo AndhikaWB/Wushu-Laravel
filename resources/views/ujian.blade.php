@@ -56,30 +56,30 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="table1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>Nama Peserta Ujian</th>
                         <th>Tanggal Mulai</th>
-                        <th>Tanggal Selesai</th>
+                        <th>Waktu Selesai</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
                       @foreach ($daftar_ujian as $ujian)
-                      <tr data-val="{{ $ujian->username }}">
-                        <td>{{ $ujian->user->name }}</td>
-                        <td>{{ $ujian->datetime_mulai->format('Y-m-d H:i') }}</td>
-                        <td>{{ $ujian->datetime_akhir->format('Y-m-d H:i') }}</td>
-                        <td>
-                          <button type="button" class="btn-load-ujian btn btn-warning" data-toggle="modal" data-target="#modal-edit" id="edit-ujian">
-                            Edit
-                          </button>
-                          <button type="button" class="btn-load-ujian btn btn-danger" data-toggle="modal" data-target="#modal-hapus" id="hapus-ujian">
-                            Hapus
-                          </button>
-                        </td>
-                      </tr>
+                        <tr data-val="{{ $ujian->username }}">
+                          <td>{{ $ujian->user->name }}</td>
+                          <td>{{ $ujian->datetime_mulai->format('Y-m-d H:i') }}</td>
+                          <td>{{ $ujian->datetime_akhir ? $ujian->datetime_akhir->format('Y-m-d H:i') : "" }}</td>
+                          <td class="col-2">
+                            <button type="button" class="btn-load-ujian btn btn-warning edit-ujian" data-toggle="modal" data-target="#modal-edit">
+                              Edit
+                            </button>
+                            <button type="button" class="btn-load-ujian btn btn-danger hapus-ujian" data-toggle="modal" data-target="#modal-hapus">
+                              Hapus
+                            </button>
+                          </td>
+                        </tr>
                       @endforeach
 
                       <div class="modal fade" id="modal-edit">
@@ -92,28 +92,32 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form action="{{ route("ujian_edit") }}" method="post">
+                              <form action="{{ route('ujian_edit') }}" method="post">
                                 @csrf
                                 <div class="card-body">
+                                  <input type="hidden" class="form-control" id="edit-old-username" name="old_username">
                                   <div class="form-group">
-                                    <label for="exampleInputEmail1">Username Peserta</label>
-                                    <input readonly type="text" class="form-control" id="edit-username" name="username">
+                                    <label for="exampleInputEmail1">Nama Peserta</label>
+                                    <div>
+                                      <select class="select2-username" id="edit-username" name="username" style="width: 100%">
+                                      </select>
+                                    </div>
                                   </div>
                                   <div class="form-group">
                                     <label for="exampleInputPassword1">Tanggal Mulai</label>
                                     <div class="input-group date" id="datetime-mulai-edit-picker" data-target-input="nearest">
-                                      <input type="text" class="form-control datetimepicker-input" id="edit-datetime-mulai" name="datetime_mulai" data-target="#datetime-mulai-edit-picker"/>
+                                      <input type="text" class="form-control datetimepicker-input" id="edit-datetime-mulai" name="datetime_mulai" data-target="#datetime-mulai-edit-picker" placeholder="Masukkan Waktu Mulai"/>
                                       <div class="input-group-append" data-target="#datetime-mulai-edit-picker" data-toggle="datetimepicker">
-                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleInputPassword1">Tanggal Selesai</label>
+                                    <label for="exampleInputPassword1">Waktu Selesai</label>
                                     <div class="input-group date" id="datetime-akhir-edit-picker" data-target-input="nearest">
-                                      <input type="text" class="form-control datetimepicker-input" id="edit-datetime-akhir" name="datetime_akhir" data-target="#datetime-akhir-edit-picker"/>
+                                      <input type="text" class="form-control datetimepicker-input" id="edit-datetime-akhir" name="datetime_akhir" data-target="#datetime-akhir-edit-picker" placeholder="Masukkan Waktu Selesai (Opsional)"/>
                                       <div class="input-group-append" data-target="#datetime-akhir-edit-picker" data-toggle="datetimepicker">
-                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                       </div>
                                     </div>
                                   </div>
@@ -143,14 +147,13 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form action="{{ route("ujian_hapus") }}" method="post">
+                              <form action="{{ route('ujian_hapus') }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                   <div class="form-group">
-                                    <label>Hapus Peserta Ujian dengan Username Berikut?</label>
-                                    <input readonly type="text" class="form-control" id="hapus-username" name="username">
+                                    <label>Apakah Anda Yakin Ingin Menghapus Jadwal Ujian Ini?</label>
+                                    <input type="hidden" class="form-control" id="hapus-username" name="username">
                                   </div>
-
                                 </div>
                                 <!-- /.card-body -->
 
@@ -196,28 +199,26 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nama Peserta</label>
-                  <div></div>
-                  <select class="select2-username" name="username" style="width: 100%">
-                    @foreach ($daftar_user as $user)
-                    <option value="{{ $user->username }}">{{ $user->name }} ({{ $user->username }})</option>
-                    @endforeach
-                  </select>
+                  <div>
+                    <select class="select2-username" id="tambah-username" name="username" style="width: 100%">
+                    </select>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Tanggal Mulai</label>
+                  <label for="exampleInputPassword1">Waktu Mulai</label>
                   <div class="input-group date" id="datetime-mulai-tambah-picker" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" name="datetime_mulai" data-target="#datetime-mulai-tambah-picker"/>
+                    <input type="text" class="form-control datetimepicker-input" name="datetime_mulai" data-target="#datetime-mulai-tambah-picker" placeholder="Masukkan Waktu Mulai"/>
                     <div class="input-group-append" data-target="#datetime-mulai-tambah-picker" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Tanggal Selesai</label>
+                  <label for="exampleInputPassword1">Waktu Selesai</label>
                   <div class="input-group date" id="datetime-akhir-tambah-picker" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" name="datetime_akhir" data-target="#datetime-akhir-tambah-picker"/>
+                    <input type="text" class="form-control datetimepicker-input" name="datetime_akhir" data-target="#datetime-akhir-tambah-picker" placeholder="Masukkan Waktu Selesai (Opsional)"/>
                     <div class="input-group-append" data-target="#datetime-akhir-tambah-picker" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
                   </div>
                 </div>
@@ -268,45 +269,75 @@
   <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
   <!-- AdminLTE App -->
   <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="{{ asset('dist/js/demo.js') }}"></script>
   <!-- Page specific script -->
   <script>
     $(function() {
-      $("#example1").DataTable({
+      $("#table1").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
+      }).buttons().container().appendTo('#table1_wrapper .col-md-6:eq(0)');
       // AW
-      $('.select2-username').select2();
+      $('.select2-username').select2({
+        allowClear: true,
+        minimumResultsForSearch: 5,
+        placeholder: "Pilih Peserta Ujian",
+        data: {!! json_encode($daftar_user) !!},
+      });
 
-      $('#datetime-mulai-tambah-picker').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
-      $('#datetime-mulai-edit-picker').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
-      $('#datetime-akhir-tambah-picker').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
-      $('#datetime-akhir-edit-picker').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
+      $('#datetime-mulai-tambah-picker').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm'
+      });
+      $('#datetime-mulai-edit-picker').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm'
+      });
+      $('#datetime-akhir-tambah-picker').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm'
+      });
+      $('#datetime-akhir-edit-picker').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm'
+      });
 
-      $('#edit-ujian').click(function() {
+      $('.tambah-ujian').click(function() {
+        $('#tambah-username').empty()
+
+        $('#tambah-username').select2({
+          allowClear: true,
+          minimumResultsForSearch: 5,
+          placeholder: "Pilih Peserta Ujian",
+          data: {!! json_encode($daftar_user) !!},
+        });
+
+        $('#tambah-username').trigger('change')
+      });
+
+      $('.edit-ujian').click(function() {
         let parent = $(this).closest('tr')
         let children = parent.children('td')
-        $('#edit-username').val(parent.attr('data-val'))
+
+        $('#edit-username').empty()
+
+        $('#edit-username').select2({
+          allowClear: true,
+          minimumResultsForSearch: 5,
+          placeholder: "Pilih Peserta Ujian",
+          data: {!! json_encode($daftar_user) !!},
+        });
+
+        // Tambahkan opsi nama kegiatan baru bila belum ada
+        if (!$('#edit-username').find("option[value='" + parent.attr('data-val') + "']").length) {
+          let tag_baru = new Option(children[0].textContent + ' (' + parent.attr('data-val') + ')', parent.attr('data-val'), false, false)
+          $('#edit-username').append(tag_baru)
+        }
+        $('#edit-old-username').val(parent.attr('data-val'))
+        $('#edit-username').val(parent.attr('data-val')).trigger('change')
         $('#edit-datetime-mulai').val(children[1].textContent)
         $('#edit-datetime-akhir').val(children[2].textContent)
       });
 
-      $('#hapus-ujian').click(function() {
-        let parent = $(this).closest('tr')
-        $('#hapus-username').val(parent.attr('data-val'))
+      $('.hapus-ujian').click(function() {
+        $('#hapus-username').val($(this).closest('tr').attr('data-val'))
       });
     });
   </script>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Daftar Peserta Lomba</title>
+  <title>Daftar Lomba</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,7 +31,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Daftar Peserta Lomba</h1>
+              <h1>Daftar Lomba</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -49,42 +49,44 @@
               <div class="card">
                 <div class="card-header">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah">
-                    Tambah Peserta Lomba
+                    Tambah Lomba
                   </button>
-                  @if (!$terdaftar)
-                    <button type="button" class="btn btn-warning ajukan-peserta" data-toggle="modal" data-target="#modal-ajukan">
-                      Ajukan Diri Sebagai Peserta
-                    </button>
-                  @endif
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                   <table id="table1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Nama Peserta Lomba</th>
+                        <th>Nama Lomba</th>
+                        <th>Tingkatan</th>
                         <th>Kategori</th>
-                        <th>Status</th>
+                        <th>Lokasi</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($daftar_peserta as $peserta)
-                        <tr data-val="{{ $peserta->username }}">
-                          <td>{{ $peserta->user->name }}</td>
+                      @foreach ($daftar_lomba as $lomba)
+                        <tr data-val="{{ $lomba->id }}">
+                          <td>{{ $lomba->nama_lomba }}</td>
+                          <td>{{ $lomba->tingkatan }}</td>
                           <td class="col-2">
-                            @foreach ($peserta->kategori as $kategori)
+                            @foreach ($lomba->kategori as $kategori)
                               <span class="badge bg-primary">{{ $kategori }}</span>
                             @endforeach
                           </td>
-                          <td>{{ $peserta->status }}</td>
-                          <td class="col-2">
-                            <button type="button" class="btn-load-peserta btn btn-warning edit-peserta" data-toggle="modal" data-target="#modal-edit">
-                              Edit
-                            </button>
-                            <button type="button" class="btn-load-peserta btn btn-danger hapus-peserta" data-toggle="modal" data-target="#modal-hapus">
-                              Hapus
-                            </button>
+                          <td>{{ $lomba->lokasi }}</td>
+                          <td class="col-1">
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-success btn-flat">Aksi</button>
+                              <button type="button" class="btn btn-success btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                <span class="sr-only">Toggle Dropdown</span>
+                              </button>
+                              <div class="dropdown-menu" role="menu">
+                                <a class="dropdown-item edit-lomba" data-toggle="modal" data-target="#modal-edit">Edit</a>
+                                <a class="dropdown-item hapus-lomba" data-toggle="modal" data-target="#modal-hapus">Hapus</a>
+                                <a class="dropdown-item" href="{{ route('peserta', $lomba->id) }}">Daftar Peserta</a>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                       @endforeach
@@ -93,34 +95,58 @@
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h4 class="modal-title">Edit Peserta Lomba</h4>
+                              <h4 class="modal-title">Edit Lomba</h4>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form action="{{ route('peserta_edit', $id_lomba) }}" method="post">
+                              <form action="{{ route('lomba_edit') }}" method="post">
                                 @csrf
                                 <div class="card-body">
-                                  <input type="hidden" class="form-control" id="edit-old-username" name="old_username">
                                   <div class="form-group">
-                                    <label>Nama Peserta Lomba</label>
-                                    <select class="form-control select2-username" id="edit-username" name="username">
-                                    </select>
+                                    <label>Id Lomba</label>
+                                    <input readonly type="text" class="form-control" id="edit-id" name="id">
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Nama Lomba</label>
+                                    <input type="text" class="form-control" id="edit-nama-lomba" name="nama_lomba" placeholder="Masukkan Nama Lomba">
                                   </div>
                                   <div class="form-group">
                                     <label>Kategori Lomba</label>
                                     <div>
                                       <select class="form-control select2-kategori" id="edit-kategori" name="kategori[]">
+                                        <option value="Changquan">Changquan</option>
+                                        <option value="Nanquan">Nanquan</option>
+                                        <option value="Taijiquan">Taijiquan</option>
+                                        <option value="Daoshu">Daoshu</option>
+                                        <option value="Nandao">Nandao</option>
+                                        <option value="Jian">Jian</option>
+                                        <option value="Taijijian">Taijijian</option>
+                                        <option value="Gunshu">Gunshu</option>
+                                        <option value="Nangun">Nangun</option>
+                                        <option value="Qiang">Qiang</option>
+                                        <option value="Duilian">Duilian</option>
                                       </select>
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label>Status</label>
+                                    <label>Tingkatan</label>
                                     <div>
-                                      <select class="form-control select2-status" id="edit-status" name="status">
+                                      <select class="form-control select2-tingkatan" id="edit-tingkatan" name="tingkatan">
+                                        <option value="Lokal/RT/RW">Lokal/RT/RW</option>
+                                        <option value="Desa/Kelurahan">Desa/Kelurahan</option>
+                                        <option value="Kecamatan">Kecamatan</option>
+                                        <option value="Kabupaten/Kota">Kabupaten/Kota</option>
+                                        <option value="Provinsi">Provinsi</option>
+                                        <option value="Nasional">Nasional</option>
+                                        <option value="Internasional">Internasional</option>
                                       </select>
                                     </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Lokasi</label>
+                                    <textarea class="form-control" rows="3" placeholder="Masukkan Lokasi" id="edit-lokasi" name="lokasi"></textarea>
                                   </div>
                   
                                 </div>
@@ -143,19 +169,20 @@
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h4 class="modal-title">Hapus Peserta Lomba</h4>
+                              <h4 class="modal-title">Hapus Lomba</h4>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form action="{{ route('peserta_hapus', $id_lomba) }}" method="post">
+                              <form action="{{ route('lomba_hapus') }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                   <div class="form-group">
-                                    <label>Apakah Anda Yakin Ingin Menghapus Peserta Lomba Ini?</label>
-                                    <input type="hidden" class="form-control" id="hapus-username" name="username">
+                                    <label>Apakah Anda Yakin Ingin Menghapus Lomba Ini?</label>
+                                    <input type="hidden" class="form-control" id="hapus-id" name="id">
                                   </div>
+
                                 </div>
                                 <!-- /.card-body -->
 
@@ -190,73 +217,57 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Tambah Peserta Lomba</h4>
+            <h4 class="modal-title">Tambah Lomba</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form action="{{ route('peserta_edit', $id_lomba) }}" method="post">
+            <form action="{{ route('lomba_edit') }}" method="post">
               @csrf
               <div class="card-body">
                 <div class="form-group">
-                  <label>Nama Peserta Lomba</label>
-                  <select class="form-control select2-username" id="tambah-username" name="username">
-                  </select>
+                  <label>Nama Lomba</label>
+                  <input type="text" class="form-control" name="nama_lomba" placeholder="Masukkan Nama Lomba">
                 </div>
                 <div class="form-group">
                   <label>Kategori Lomba</label>
                   <div>
-                    <select class="form-control select2-kategori" id="tambah-kategori" name="kategori[]">
+                    <select class="form-control select2-kategori" name="kategori[]">
+                      <option value="Changquan">Changquan</option>
+                      <option value="Nanquan">Nanquan</option>
+                      <option value="Taijiquan">Taijiquan</option>
+                      <option value="Daoshu">Daoshu</option>
+                      <option value="Nandao">Nandao</option>
+                      <option value="Jian">Jian</option>
+                      <option value="Taijijian">Taijijian</option>
+                      <option value="Gunshu">Gunshu</option>
+                      <option value="Nangun">Nangun</option>
+                      <option value="Qiang">Qiang</option>
+                      <option value="Duilian">Duilian
+                      </option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label>Status</label>
+                  <label>Tingkatan</label>
                   <div>
-                    <select class="form-control select2-status" id="tambah-status" name="status">
+                    <select class="form-control select2-tingkatan" name="tingkatan">
+                      <option value="Lokal/RT/RW">Lokal/RT/RW</option>
+                      <option value="Desa/Kelurahan">Desa/Kelurahan</option>
+                      <option value="Kecamatan">Kecamatan</option>
+                      <option value="Kabupaten/Kota">Kabupaten/Kota</option>
+                      <option value="Provinsi">Provinsi</option>
+                      <option value="Nasional">Nasional</option>
+                      <option value="Internasional">Internasional</option>
                     </select>
                   </div>
                 </div>
-
-              </div>
-              <!-- /.card-body -->
-
-              <div class="card-footer">
-                <button type="submit" class="btn btn-warning">Submit</button>
-              </div>
-            </form>
-          </div>
-
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <div class="modal fade" id="modal-ajukan">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Pengajuan Peserta Lomba</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="{{ route('peserta_edit', $id_lomba) }}" method="post">
-              @csrf
-              <div class="card-body">
-                <input type="hidden" class="form-control" id="ajukan-username" name="username" value="{{ $username }}">
-                <input type="hidden" class="form-control" id="ajukan-status" name="status" value="Tahap Pengajuan">
                 <div class="form-group">
-                  <label>Kategori Lomba</label>
-                  <div>
-                    <select class="form-control select2-kategori" id="ajukan-kategori" name="kategori[]">
-                    </select>
-                  </div>
+                  <label>Lokasi</label>
+                  <textarea class="form-control" rows="3" placeholder="Masukkan Lokasi" name="lokasi"></textarea>
                 </div>
+
               </div>
               <!-- /.card-body -->
 
@@ -312,49 +323,25 @@
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
       }).buttons().container().appendTo('#table1_wrapper .col-md-6:eq(0)');
       // AW
-      $('.select2-username').select2({
-        width: "100%",
-        allowClear: true,
-        minimumResultsForSearch: 5,
-        placeholder: "Pilih Peserta Ujian",
-        data: {!! json_encode($daftar_user) !!},
-      });
       $('.select2-kategori').select2({
+        tags: true,
         multiple: true,
         width: "100%",
-        minimumResultsForSearch: 5,
-        data: {!! json_encode($daftar_kategori) !!},
-        placeholder: "Pilih Kategori Lomba",
+        placeholder: "Pilih atau Ketik Kategori Baru",
       });
-      $('.select2-status').select2({
+      $('.select2-tingkatan').select2({
         tags: true,
         width: "100%",
         allowClear: true,
-        data: ["Tahap Pengajuan","Proses Seleksi","Gagal Seleksi","Ikut Lomba"],
-        placeholder: "Pilih atau Ketik Status Baru",
+        placeholder: "Pilih atau Ketik Tingkatan Baru",
       });
 
-      $('.edit-peserta').click(function() {
+      $('.edit-lomba').click(function() {
         let parent = $(this).closest('tr')
         let children = parent.children('td')
-
-        $('#edit-status').val(children[2].textContent)
-
-        $('#edit-username').empty()
-        $('#edit-username').select2({
-          width: "100%",
-          allowClear: true,
-          minimumResultsForSearch: 5,
-          placeholder: "Pilih Peserta Ujian",
-          data: {!! json_encode($daftar_user) !!},
-        }).trigger('change');
-
-        if (!$('#edit-username').find("option[value='" + parent.attr('data-val') + "']").length) {
-          let tag_baru = new Option(children[0].textContent + ' (' + parent.attr('data-val') + ')', parent.attr('data-val'), false, false);
-          $('#edit-username').append(tag_baru).trigger('change');
-        }
-        $('#edit-username').val(parent.attr('data-val')).trigger('change')
-        $('#edit-old-username').val(parent.attr('data-val'))
+        $('#edit-id').val(parent.attr('data-val'))
+        $('#edit-nama-lomba').val(children[0].textContent)
+        $('#edit-lokasi').val(children[3].textContent)
 
         let kategori_array = []
           children.children('span').each(function() {
@@ -367,16 +354,16 @@
         })
         $('#edit-kategori').val(kategori_array).trigger('change')
 
-        if (!$('#edit-status').find("option[value='" + children[2].textContent + "']").length) {
-          let tag_baru = new Option(children[2].textContent, children[2].textContent, false, false);
-          $('#edit-status').append(tag_baru).trigger('change');
+        if (!$('#edit-tingkatan').find("option[value='" + children[1].textContent + "']").length) {
+          let tag_baru = new Option(children[1].textContent, children[1].textContent, false, false);
+          $('#edit-tingkatan').append(tag_baru).trigger('change');
         }
-        $('#edit-status').val(children[2].textContent).trigger('change')
+        $('#edit-tingkatan').val(children[1].textContent).trigger('change')
       });
-      $('.hapus-peserta').click(function() {
+      $('.hapus-lomba').click(function() {
         let parent = $(this).closest('tr')
         let children = parent.children('td')
-        $('#hapus-username').val(parent.attr('data-val'))
+        $('#hapus-id').val(parent.attr('data-val'))
       });
     });
   </script>
