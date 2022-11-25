@@ -24,7 +24,7 @@ class Peserta extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id', // id lomba
+        'id_lomba',
         'username',
         'kategori',
         'status',
@@ -36,7 +36,7 @@ class Peserta extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'id' => 'integer',
+        'id_lomba' => 'integer',
         'kategori' => 'array',
     ];
 
@@ -45,6 +45,6 @@ class Peserta extends Model
     }
 
     public function lomba() {
-        return $this->hasOne(Lomba::class, 'id', 'id');
+        return $this->hasOne(Lomba::class, 'id', 'id_lomba');
     }
 }

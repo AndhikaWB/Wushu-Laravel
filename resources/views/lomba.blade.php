@@ -104,10 +104,7 @@
                               <form action="{{ route('lomba_edit') }}" method="post">
                                 @csrf
                                 <div class="card-body">
-                                  <div class="form-group">
-                                    <label>Id Lomba</label>
-                                    <input readonly type="text" class="form-control" id="edit-id" name="id">
-                                  </div>
+                                  <input type="hidden" class="form-control" id="edit-id" name="id">
                                   <div class="form-group">
                                     <label>Nama Lomba</label>
                                     <input type="text" class="form-control" id="edit-nama-lomba" name="nama_lomba" placeholder="Masukkan Nama Lomba">

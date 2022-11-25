@@ -15,7 +15,7 @@
                 <img src="{{ asset('dist/img/march.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ $username }}</a>
+                <a href="{{ route('biodata') }}" class="d-block">{{ $username }}</a>
             </div>
         </div>
 
@@ -28,7 +28,7 @@
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link active">
+                    <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -37,7 +37,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('anggota') }}" class="nav-link">
+                    <a href="{{ route('anggota') }}" class="nav-link {{ Route::is('anggota') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
                             Daftar Anggota
@@ -46,7 +46,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('ujian') }}" class="nav-link">
+                    <a href="{{ route('ujian') }}" class="nav-link {{ Route::is('ujian') ? 'active' : '' }}">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>
                             Jadwal Ujian
@@ -57,27 +57,19 @@
 
 
                 <li class="nav-item">
-                    <a href="{{ route('kegiatan') }}" class="nav-link">
+                    <a href="{{ route('kegiatan') }}" class="nav-link {{ Route::is('kegiatan') ? 'active' : '' }}">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>
-                            Jadwal Kegiatan Umum
+                            Jadwal Kegiatan
                         </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('lomba') }}" class="nav-link">
+                    <a href="{{ route('lomba') }}" class="nav-link {{ Route::is('lomba') || Route::is('peserta*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-columns"></i>
                         <p>
-                            Daftar Lomba
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('biodata') }}" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>
-                            Biodata
+                            Daftar Lomba & Peserta
                         </p>
                     </a>
                 </li>
