@@ -410,6 +410,15 @@
         })
         $('#edit-kategori').val(kategori_array).trigger('change')
 
+        $('#edit-status').empty()
+        $('#edit-status').select2({
+          tags: true,
+          width: "100%",
+          allowClear: true,
+          data: ["Tahap Pengajuan","Proses Seleksi","Gagal Seleksi","Ikut Lomba"],
+          placeholder: "Pilih atau Ketik Status Baru",
+        }).trigger('change');
+
         if (!$('#edit-status').find("option[value='" + children[2].textContent + "']").length) {
           let tag_baru = new Option(children[2].textContent, children[2].textContent, false, false);
           $('#edit-status').append(tag_baru).trigger('change');
