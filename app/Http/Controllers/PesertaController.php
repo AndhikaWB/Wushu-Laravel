@@ -23,7 +23,7 @@ class PesertaController extends Controller
     public function index(Request $request) {
         $id_lomba = $request->route('id_lomba');
         $lomba = Lomba::all()->where('id', $id_lomba)->first();
-        if (!$lomba) redirect()->route('lomba');
+        if (!$lomba) return redirect()->route('lomba');
 
         $daftar_peserta = Peserta::all()->where('id_lomba', $id_lomba);
         $username_peserta_terpakai = array();
