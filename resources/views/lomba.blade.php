@@ -104,10 +104,7 @@
                               <form action="{{ route('lomba_edit') }}" method="post">
                                 @csrf
                                 <div class="card-body">
-                                  <div class="form-group">
-                                    <label>Id Lomba</label>
-                                    <input readonly type="text" class="form-control" id="edit-id" name="id">
-                                  </div>
+                                  <input type="hidden" class="form-control" id="edit-id" name="id">
                                   <div class="form-group">
                                     <label>Nama Lomba</label>
                                     <input type="text" class="form-control" id="edit-nama-lomba" name="nama_lomba" placeholder="Masukkan Nama Lomba">
@@ -116,17 +113,6 @@
                                     <label>Kategori Lomba</label>
                                     <div>
                                       <select class="form-control select2-kategori" id="edit-kategori" name="kategori[]">
-                                        <option value="Changquan">Changquan</option>
-                                        <option value="Nanquan">Nanquan</option>
-                                        <option value="Taijiquan">Taijiquan</option>
-                                        <option value="Daoshu">Daoshu</option>
-                                        <option value="Nandao">Nandao</option>
-                                        <option value="Jian">Jian</option>
-                                        <option value="Taijijian">Taijijian</option>
-                                        <option value="Gunshu">Gunshu</option>
-                                        <option value="Nangun">Nangun</option>
-                                        <option value="Qiang">Qiang</option>
-                                        <option value="Duilian">Duilian</option>
                                       </select>
                                     </div>
                                   </div>
@@ -134,13 +120,6 @@
                                     <label>Tingkatan</label>
                                     <div>
                                       <select class="form-control select2-tingkatan" id="edit-tingkatan" name="tingkatan">
-                                        <option value="Lokal/RT/RW">Lokal/RT/RW</option>
-                                        <option value="Desa/Kelurahan">Desa/Kelurahan</option>
-                                        <option value="Kecamatan">Kecamatan</option>
-                                        <option value="Kabupaten/Kota">Kabupaten/Kota</option>
-                                        <option value="Provinsi">Provinsi</option>
-                                        <option value="Nasional">Nasional</option>
-                                        <option value="Internasional">Internasional</option>
                                       </select>
                                     </div>
                                   </div>
@@ -234,18 +213,6 @@
                   <label>Kategori Lomba</label>
                   <div>
                     <select class="form-control select2-kategori" name="kategori[]">
-                      <option value="Changquan">Changquan</option>
-                      <option value="Nanquan">Nanquan</option>
-                      <option value="Taijiquan">Taijiquan</option>
-                      <option value="Daoshu">Daoshu</option>
-                      <option value="Nandao">Nandao</option>
-                      <option value="Jian">Jian</option>
-                      <option value="Taijijian">Taijijian</option>
-                      <option value="Gunshu">Gunshu</option>
-                      <option value="Nangun">Nangun</option>
-                      <option value="Qiang">Qiang</option>
-                      <option value="Duilian">Duilian
-                      </option>
                     </select>
                   </div>
                 </div>
@@ -253,13 +220,6 @@
                   <label>Tingkatan</label>
                   <div>
                     <select class="form-control select2-tingkatan" name="tingkatan">
-                      <option value="Lokal/RT/RW">Lokal/RT/RW</option>
-                      <option value="Desa/Kelurahan">Desa/Kelurahan</option>
-                      <option value="Kecamatan">Kecamatan</option>
-                      <option value="Kabupaten/Kota">Kabupaten/Kota</option>
-                      <option value="Provinsi">Provinsi</option>
-                      <option value="Nasional">Nasional</option>
-                      <option value="Internasional">Internasional</option>
                     </select>
                   </div>
                 </div>
@@ -327,12 +287,16 @@
         tags: true,
         multiple: true,
         width: "100%",
+        data: ["Changquan","Nanquan","Taijiquan","Daoshu","Nandao",
+            "Jian","Taijijian","Gunshu","Nangun","Qiang","Duilian"],
         placeholder: "Pilih atau Ketik Kategori Baru",
       });
       $('.select2-tingkatan').select2({
         tags: true,
         width: "100%",
         allowClear: true,
+        data: ["Lokal/RT/RW","Desa/Kelurahan","Kecamatan",
+          "Kabupaten/Kota","Provinsi","Nasional","Internasional"],
         placeholder: "Pilih atau Ketik Tingkatan Baru",
       });
 
@@ -342,6 +306,16 @@
         $('#edit-id').val(parent.attr('data-val'))
         $('#edit-nama-lomba').val(children[0].textContent)
         $('#edit-lokasi').val(children[3].textContent)
+
+        $('#edit-kategori').empty()
+        $('#edit-kategori').select2({
+          tags: true,
+          multiple: true,
+          width: "100%",
+          data: ["Changquan","Nanquan","Taijiquan","Daoshu","Nandao",
+            "Jian","Taijijian","Gunshu","Nangun","Qiang","Duilian"],
+          placeholder: "Pilih atau Ketik Kategori Baru",
+        }).trigger('change');
 
         let kategori_array = []
           children.children('span').each(function() {
@@ -353,6 +327,16 @@
           }
         })
         $('#edit-kategori').val(kategori_array).trigger('change')
+
+        $('#edit-tingkatan').empty()
+        $('#edit-tingkatan').select2({
+          tags: true,
+          width: "100%",
+          allowClear: true,
+          data: ["Lokal/RT/RW","Desa/Kelurahan","Kecamatan",
+            "Kabupaten/Kota","Provinsi","Nasional","Internasional"],
+          placeholder: "Pilih atau Ketik Tingkatan Baru",
+        }).trigger('change');
 
         if (!$('#edit-tingkatan').find("option[value='" + children[1].textContent + "']").length) {
           let tag_baru = new Option(children[1].textContent, children[1].textContent, false, false);

@@ -11,7 +11,6 @@ use App\Models\User;
 class PesertaController extends Controller
 {
     public $username;
-    public $id_lomba;
 
     public function __construct()
     {
@@ -22,8 +21,11 @@ class PesertaController extends Controller
     }
 
     public function index(Request $request) {
-        $id_lomba = $request->route('id');
-        $daftar_peserta = Peserta::all()->where('id', $id_lomba);
+        $id_lomba = $request->route('id_lomba');
+        $lomba = Lomba::all()->where('id', $id_lomba)->first();
+        if (!$lomba) return redirect()->route('lomba');
+
+        $daftar_peserta = Peserta::all()->where('id_lomba', $id_lomba);
         $username_peserta_terpakai = array();
         foreach ($daftar_peserta as $peserta) {
             if ($peserta->username) {
@@ -38,16 +40,15 @@ class PesertaController extends Controller
             return ['id' => $user->username, 'text' => $user->name . ' (' . $user->username . ')' ];
         })->toArray();
 
-        $lomba = Lomba::all('id','kategori')->where('id', $id_lomba)->first();
         $daftar_kategori = collect($lomba->kategori)->map(function ($kategori) {
             return ['id' => $kategori, 'text' => $kategori ];
         })->toArray();
 
         return view('peserta', [
-            'id_lomba' => $id_lomba,
+            'lomba' => $lomba,
             'username' => $this->username,
-            'daftar_user' => $daftar_user,
-            'daftar_peserta' => $daftar_peserta,
+            'daftar_user' => $daftar_user, // belum terdaftar lomba
+            'daftar_peserta' => $daftar_peserta, // terdaftar lomba
             'daftar_kategori' => $daftar_kategori,
             'terdaftar' => $terdaftar
         ]);
@@ -55,7 +56,7 @@ class PesertaController extends Controller
 
     public function createOrUpdate(Request $request) {
         // Shortcut ke variabel penting
-        $id_lomba = $request->route('id');
+        $id_lomba = $request->route('id_lomba');
         $username = $request->input('username');
         $old_username = $request->input('old_username');
 
@@ -67,30 +68,30 @@ class PesertaController extends Controller
         ]);
 
         // Perbarui atau buat model baru
-        $peserta = Peserta::where([
-            ['id', '=', $id_lomba],
-            ['username', '=', $username],
-        ])->first();
+        $peserta = Peserta::all()
+            ->where('id_lomba', $id_lomba)
+            ->where('username', '=', $username)
+            ->first();
         if (!$peserta) $peserta = new Peserta();
 
-        $peserta->id = $id_lomba;
+        $peserta->id_lomba = $id_lomba;
         $peserta->username = $username;
         $peserta->kategori = $request->input('kategori');
         $peserta->status = $request->input('status');
         $peserta->save();
 
         // Hapus model lama
-        if ($old_username && $old_username != $username) Peserta::where([
-            ['id', '=', $id_lomba],
-            ['username', '=', $old_username],
-        ])->first()->delete();
+        if ($old_username && $old_username != $username) $peserta = Peserta::all()
+            ->where('id_lomba', $id_lomba)
+            ->where('username', '=', $old_username)
+            ->first()->delete();
 
         return redirect()->route('peserta', $id_lomba);
     }
 
     public function delete(Request $request) {
         // Shortcut ke variabel penting
-        $id_lomba = $request->route('id');
+        $id_lomba = $request->route('id_lomba');
         $username = $request->input('username');
 
         // Validasi form
@@ -99,10 +100,10 @@ class PesertaController extends Controller
         ]);
 
         // Hapus model bila ditemukan
-        $peserta = Peserta::where([
-            ['id', '=', $id_lomba],
-            ['username', '=', $username],
-        ])->first();
+        $peserta = Peserta::all()
+            ->where('id_lomba', $id_lomba)
+            ->where('username', '=', $username)
+            ->first();
         if ($peserta) $peserta->delete();
 
         return redirect()->route('peserta', $id_lomba);

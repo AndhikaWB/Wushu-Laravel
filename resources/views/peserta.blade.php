@@ -56,6 +56,9 @@
                       Ajukan Diri Sebagai Peserta
                     </button>
                   @endif
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-informasi">
+                    Informasi Lomba
+                  </button>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -99,7 +102,7 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form action="{{ route('peserta_edit', $id_lomba) }}" method="post">
+                              <form action="{{ route('peserta_edit', $lomba->id) }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                   <input type="hidden" class="form-control" id="edit-old-username" name="old_username">
@@ -149,7 +152,7 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form action="{{ route('peserta_hapus', $id_lomba) }}" method="post">
+                              <form action="{{ route('peserta_hapus', $lomba->id) }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                   <div class="form-group">
@@ -196,7 +199,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="{{ route('peserta_edit', $id_lomba) }}" method="post">
+            <form action="{{ route('peserta_edit', $lomba->id) }}" method="post">
               @csrf
               <div class="card-body">
                 <div class="form-group">
@@ -245,7 +248,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="{{ route('peserta_edit', $id_lomba) }}" method="post">
+            <form action="{{ route('peserta_edit', $lomba->id) }}" method="post">
               @csrf
               <div class="card-body">
                 <input type="hidden" class="form-control" id="ajukan-username" name="username" value="{{ $username }}">
@@ -262,6 +265,46 @@
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-warning">Submit</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal fade" id="modal-informasi">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Informasi Lomba</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Nama Lomba</label>
+                  <input readonly class="form-control" name="nama_lomba" value="{{ $lomba->nama_lomba }}">
+                </div>
+                <div class="form-group">
+                  <label>Tingkatan</label>
+                  <input readonly class="form-control" name="tingkatan" value="{{ $lomba->tingkatan }}">
+                </div>
+                <div class="form-group">
+                  <label>Lokasi</label>
+                  <textarea readonly class="form-control" rows="3" name="lokasi">{{ $lomba->lokasi }}</textarea>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
               </div>
             </form>
           </div>
@@ -366,6 +409,15 @@
           }
         })
         $('#edit-kategori').val(kategori_array).trigger('change')
+
+        $('#edit-status').empty()
+        $('#edit-status').select2({
+          tags: true,
+          width: "100%",
+          allowClear: true,
+          data: ["Tahap Pengajuan","Proses Seleksi","Gagal Seleksi","Ikut Lomba"],
+          placeholder: "Pilih atau Ketik Status Baru",
+        }).trigger('change');
 
         if (!$('#edit-status').find("option[value='" + children[2].textContent + "']").length) {
           let tag_baru = new Option(children[2].textContent, children[2].textContent, false, false);

@@ -14,13 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('peserta', function (Blueprint $table) {
-            $table->unsignedBigInteger('id'); // Id lomba
+            $table->id();
+            $table->unsignedBigInteger('id_lomba');
             $table->string('username');
             $table->json('kategori');
             $table->string('status');
             $table->timestamps();
 
-            $table->foreign('id')
+            $table->foreign('id_lomba')
               ->references('id')->on('lomba')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('username')
               ->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');

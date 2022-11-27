@@ -49,9 +49,9 @@ Route::post('/lomba/edit', [LombaController::class, 'createOrUpdate'])->middlewa
 Route::post('/lomba/hapus', [LombaController::class, 'delete'])->middleware('auth')->name('lomba_hapus');
 
 // Daftar peserta
-Route::get('/peserta/{id}', [PesertaController::class, 'index'])->middleware('auth')->name('peserta');
-Route::post('/peserta/edit/{id}', [PesertaController::class, 'createOrUpdate'])->middleware('auth')->name('peserta_edit');
-Route::post('/peserta/hapus/{id}', [PesertaController::class, 'delete'])->middleware('auth')->name('peserta_hapus');
+Route::get('/peserta/{id_lomba}', [PesertaController::class, 'index'])->middleware('auth')->name('peserta');
+Route::post('/peserta/edit/{id_lomba}', [PesertaController::class, 'createOrUpdate'])->middleware('auth')->name('peserta_edit');
+Route::post('/peserta/hapus/{id_lomba}', [PesertaController::class, 'delete'])->middleware('auth')->name('peserta_hapus');
 
 
 Route::get('/anggota', [AnggotaController::class, 'index'])->middleware('auth')->name('anggota');
