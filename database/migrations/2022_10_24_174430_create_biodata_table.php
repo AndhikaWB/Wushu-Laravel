@@ -16,14 +16,10 @@ return new class extends Migration
         Schema::create('biodata', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
-            $table->string('sabuk');
-            $table->date('tgl_lahir');
-            $table->text('alamat');
-            $table->json('prestasi')->nullable();
+            $table->string('sabuk')->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->text('alamat')->nullable();
             $table->timestamps();
-
-            $table->foreign('username')
-              ->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

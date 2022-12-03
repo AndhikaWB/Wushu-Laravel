@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Biodata;
-use App\Models\BiodataOrtu;
+use App\Models\Wali;
 use App\Models\Dokumen;
 
 class BiodataController extends Controller
@@ -23,27 +24,15 @@ class BiodataController extends Controller
     }
 
     public function index() {
-        $akun = $this->getAkun($this->username);
-        $biodata = $this->getBiodata($this->username);
-        $biodata = $this->getBiodataOrtu($this->username);
-        $dokumen = $this->getDokumen($this->username);
 
-        return view('biodata', [
-            'name' => $akun->name,
-            'username' => $akun->username,
-            'password'=> $akun->password,
-            'is_admin' => $akun->is_admin,
+        // $Biodataortu = Ortu::all();
 
-            'sabuk' => $biodata->sabuk,
-            'tgl_lahir' => $biodata->tgl_lahir,
-            'alamat' => $biodata->alamat,
-            'prestasi' => $biodata->prestasi,
+        $Biodata = Biodata::where('username',$this->username)->first();
+        $User = User::where('username',$this->username)->first();
+        $Wali = Wali::where('username',$this->username)->first();
+        $Dokumen = Dokumen::All();
 
-            'nama_wali' => $biodata->prestasi,
-            'no_hp' => $biodata->prestasi,
-
-            'dokumen' => $dokumen,
-        ]);
+        return view('/biodata',['username' => $this->username], compact('Biodata','User','Wali','Dokumen'));
     }
 
     public function getAkun($username) {
@@ -52,7 +41,8 @@ class BiodataController extends Controller
 
     public function getAll() {
         return Biodata::join('biodata_ortu', 'biodata_ortu.username', '=', 'biodata.username')
-            ->join('dokumen', 'dokumen.username', '=', 'biodata.username')->get();
+            ->join('dokumen', 'dokumen.username', '=', 'biodata.username')
+            ->get();
     }
 
     public function getBiodata($username) {
@@ -93,6 +83,44 @@ class BiodataController extends Controller
             ->with('success_message', 'Berhasil mengubah informasi akun');
     }
 
+    public function update(Request $request, $username)
+    {
+        $User = User::where('username', $username)->first();
+        $User->name = $request->input('name');
+        $User->save();
+
+        $Biodata = Biodata::where('username', $username)->first();
+        $Biodata->sabuk = $request->input('sabuk');
+        $Biodata->alamat = $request->input('alamat');
+        $Biodata->save();
+
+        $Wali = Wali::where('username', $username)->first();
+        $Wali->nama_wali = $request->input('wali');
+        $Wali->no_hp = $request->input('no_hp');
+        $Wali->no_wali = $request->input('no_wali');
+        $Wali->save();
+
+        return redirect(route('biodata'));
+    }
+
+    public function upload(Request $request, $username)
+    {
+
+        $file           = $request->file('file');
+        if(empty($file)){
+            return redirect()->back();
+        }
+
+        $nama_file      = $file->getClientOriginalName();
+        $file->move('profile',$file->getClientOriginalName());
+
+        $User = User::where('username', $username)->first();
+        $User->profile = $nama_file;
+        $User->save();
+
+        return redirect()->back();
+    }
+
     public function updateBiodata(Request $request, $username) {
         $request->validate([
             'sabuk' => 'required',
@@ -118,21 +146,4 @@ class BiodataController extends Controller
         return redirect()->route('biodata.showPage')
             ->with('success_message', 'Berhasil mengubah informasi biodata');
     }
-
-    // https://ralphjsmit.com/laravel-validation
-    // https://stackoverflow.com/questions/38326282/validating-multiple-files-in-array
-
-    // public function updateDokumen(Request $request, $username) {
-    //     foreach($request->dokumen as $dok) {
-    //         $rules = array('file' => 'required|mimes:png,jpg,pdf,docx');
-    //         $dokumen = Dokumen::where('username', '=', $username)->
-    //                     where('kategori', '=', $dok->kategori)->first();
-    //         $validator = Validator::make(array('file'=> $dok), $rules);
-    //             if ($validator->passes()){
-    //                 $destinationPath = 'uploads';
-    //                 $filename = $dok->getClientOriginalName();
-    //                 $upload_success = $dok->move($destinationPath, $filename);
-    //             }
-    //     }
-    // }
 }

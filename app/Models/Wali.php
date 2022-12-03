@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dokumen extends Model
+class Wali extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Dokumen extends Model
      *
      * @var string
      */
-    protected $table = 'dokumen';
+    protected $table = 'biodata_ortu';
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +23,7 @@ class Dokumen extends Model
      */
     protected $fillable = [
         'username',
-        'file',
-        'kategori',
+        'nama_wali',
+        'no_hp',
     ];
 }

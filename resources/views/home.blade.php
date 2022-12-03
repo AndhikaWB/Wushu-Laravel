@@ -1,3 +1,6 @@
+@section('title', 'Dashboard')
+@section('dashboard', 'active')
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,8 +116,7 @@
                     <tbody>
                       <tr>
                         <td>Wushu Tahunan</td>
-                        <td>09-10-2023
-                        </td>
+                        <td>09-10-2021</td>
                         <td>Rian</td>
 
                       </tr>
@@ -130,17 +132,10 @@
               <!-- /.container-fluid -->
       </section>
     </div>
-
-
-
-
-      <!-- /.card -->
-
-
+    <!-- /.content-wrapper -->
     <footer class="main-footer">
-    
+        
     </footer>
-
 
 
     <aside class="control-sidebar control-sidebar-dark-blue">

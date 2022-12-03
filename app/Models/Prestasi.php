@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dokumen extends Model
+class Prestasi extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Dokumen extends Model
      *
      * @var string
      */
-    protected $table = 'dokumen';
+    protected $table = 'prestasi';
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +22,9 @@ class Dokumen extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'username',
-        'file',
-        'kategori',
+        'id',
+        'prestasi',
+        'tingkat',
     ];
+
 }

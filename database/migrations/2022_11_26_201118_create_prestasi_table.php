@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dokumen', function (Blueprint $table) {
+        Schema::create('prestasi', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
-            $table->string('file',100);
-            $table->string('kategori',100);
             $table->timestamps();
-
-            $table->foreign('username')
-              ->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('prestasi');
+            $table->string('username');
+            $table->string('tingkat');
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dokumen');
+        Schema::dropIfExists('prestasi');
     }
 };
