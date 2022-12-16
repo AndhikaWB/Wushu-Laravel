@@ -1,3 +1,6 @@
+@section('title', 'Dashboard')
+@section('dashboard', 'active')
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,14 +64,14 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>50<sup style="font-size: 20px">Anggota</sup></h3>
+                  <h3>{{ $anggota }}<sup style="font-size: 20px">Anggota</sup></h3>
 
                   <p>Jumlah Anggota</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="Daftar anggota.html" class="small-box-footer">Info Lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('anggota') }}" class="small-box-footer">Info Lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -76,14 +79,14 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>10<sup style="font-size: 20px">Pelatih</sup></h3>
+                  <h3>{{ $pelatih }}<sup style="font-size: 20px">Pelatih</sup></h3>
 
                   <p>Jumlah Pelatih</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="Daftar anggota.html" class="small-box-footer">info Lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('anggota') }}" class="small-box-footer">info Lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -91,56 +94,11 @@
           </div>
       </section>
       <!-- /.row -->
-
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Daftar Lomba Yang Diikuti</h3><br>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="example2" class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>Nama Lomba</th>
-                        <th>Tanggal Pelaksanaan</th>
-                        <th>Anggota Terpilih</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Wushu Tahunan</td>
-                        <td>09-10-2023
-                        </td>
-                        <td>Rian</td>
-
-                      </tr>
-
-                    </tbody>
-
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-
-              <!-- /.container-fluid -->
-      </section>
     </div>
-
-
-
-
-      <!-- /.card -->
-
-
+    <!-- /.content-wrapper -->
     <footer class="main-footer">
-    
+        
     </footer>
-
 
 
     <aside class="control-sidebar control-sidebar-dark-blue">

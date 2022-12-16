@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,313 +21,364 @@
 
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
-  @include('layouts.navbar')
 
-  @include('layouts.sidebar')
+    @include('layouts.navbar')
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Daftar Anggota Wushu Naga Mas Lampung</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+    @include('layouts.sidebar')
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-                  Tambah Data Anggota
-                </button>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <th>Nama</th>
-                    <th>Jabatan</th>
-                    <th>Sabuk</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Alamat</th>
-                    <th>Opsi</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>Suparjo</td>
-                    <td>Pelatih
-                    </td>
-                    <td>Hitam</td>
-                    <td> 4 agustus 1978</td>
-                    <td>Kampung Baru</td>
-                    <td>
-                      
-                      
-                        <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Aksi
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit">
-                        Edit
-                      </button>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-hapus">
-                        Hapus
-                      </button>
-                      <a href="prestasi.html" class="btn btn-secondary">Prestasi</a>
-                      <br>
-                      <hr>
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-dokumen">
-                        Dokumen
-                      </button>
-                      <a href="datawali.html" class="btn btn-primary">Data Wali</a>
-                        </div> -->
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-success btn-flat">Aksi</button>
-                          <button type="button" class="btn btn-success btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" data-toggle="modal" data-target="#modal-edit">Edit</a>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#modal-hapus">Hapus</a>
-                            <a class="dropdown-item" href="prestasi.html">Prestasi</a>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#modal-dokumen">Dokumen</a>
-                            <a class="dropdown-item" href="datawali.html">Data Wali</a>
-                          </div>
-                        </div>
-                    
-                     
-                    </td>
-                  </tr>
-                  <div class="modal fade" id="modal-edit">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Edit Data</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form action="" method="post">
-                            <div class="card-body">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Nama Anggota</label>
-                                <input type="text" class="form-control" name="nama" placeholder="Nama Anggota">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Jabatan</label>
-                                <input type="text" class="form-control" name="jabatan" placeholder="Jabatan">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Warna Sabuk</label>
-                                <input type="text" class="form-control" name="sabuk" placeholder="warna sabuk">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Tanggal Lahir</label>
-                                <input type="date" class="form-control" name="tgl" placeholder="tanggal lahir">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Alamat</label>
-                                <input type="text" class="form-control" name="alamat" placeholder="Alamat">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1">Prestasi</label>
-                                <input type="text" class="form-control" name="prestasi" placeholder="Prestasi">
-                              </div>
-                            </div>
-                            <!-- /.card-body -->
-              
-                            <div class="card-footer">
-                              <button type="submit" class="btn btn-warning">Submit</button>
-                            </div>
-                          </form>
-                        </div>
-                        
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
-                  <div class="modal fade" id="modal-hapus">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Hapus Data</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form action="" method="post">
-                            <div class="card-body">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Apakah Anda Ingin Menghapus Data?</label>
-                                <input type="text" class="form-control" name="nama" placeholder="Nama Anggota">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputPassword1"></label>
-                                <input type="text" class="form-control" name="jabatan" placeholder="Jabatan">
-                              </div>
-
-                            </div>
-                            <!-- /.card-body -->
-              
-                            <div class="card-footer">
-                              <button type="submit" class="btn btn-danger">Hapus</button>
-                            </div>
-                          </form>
-                        </div>
-                        
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
-
-
-
-
-                  <div class="modal fade" id="modal-dokumen">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Dokumen Bersangkutan</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah">
-                            Tambah Dokumen
-                          </button>
-                            
-                        </div>
-                        
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
-
-                  <div class="modal fade" id="modal-tambah">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title">Tambah Dokumen</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form action="#">
-                            <input type="file" id="myFile" name="filename">
-                            <input type="submit">
-                          </form>
-                            
-                        </div>
-                        
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
-                  
-                  </tbody>
-                  
-                </table>
-              </div>
-              <!-- /.card-body -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Daftar Anggota Wushu Naga Mas Lampung</h1>
             </div>
-            <!-- /.card -->
-
-      <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  
-
-    <div class="modal fade" id="modal-default">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Tambah Anggota</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+              </ol>
+            </div>
           </div>
-          <div class="modal-body">
-            <form action="" method="post">
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Nama Anggota</label>
-                  <input type="text" class="form-control" name="nama" placeholder="Masukan Nama Anggota">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Jabatan</label>
-                  <input type="text" class="form-control" name="jabatan" placeholder="Masukan Jabatan">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Warna Sabuk</label>
-                  <input type="text" class="form-control" name="sabuk" placeholder="Masukan warna sabuk">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Tanggal Lahir</label>
-                  <input type="date" class="form-control" name="tgl" placeholder="Masukan tanggal lahir">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Alamat</label>
-                  <input type="text" class="form-control" name="alamat" placeholder="Masukan Alamat">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Prestasi</label>
-                  <input type="text" class="form-control" name="prestasi" placeholder="Masukan Prestasi">
-                </div>
-              </div>
-              <!-- /.card-body -->
+        </div><!-- /.container-fluid -->
+      </section>
 
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-          </div>
-          
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                    Tambah Data Anggota
+                  </button>
+                  {{-- @foreach ($daftar_anggota as $a)
+                      <button>{{$a->name}}</button>
+                  @endforeach --}}
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th>Username</th>
+                        {{-- <th>Nama</th> --}}
+                        <th>Jabatan</th>
+                        <th>Sabuk</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Alamat</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($Biodata as $a)
+                      <tr>
+                        <td>{{ $a->username }}</td>
+                        {{-- @foreach ($User as $b)
+                            @if($b->username = $a->username)
+                                <td>{{ $b->}}
+                            @endif
+                        @endforeach --}}
+                        <td>{{ $a->is_admin ? 'Pelatih' : 'Anggota' }}</td>
+                        <td>{{ $a->sabuk }}</td>
+                        <td>{{ $a->tgl_lahir }}</td>
+                        <td>{{ $a->alamat }}<td>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-flat">Aksi</button>
+                            <button type="button" class="btn btn-success btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                              <a class="dropdown-item" data-toggle="modal" data-target="#modal-edit-{{ $a->username }}-{{ $a->username }}">Edit</a>
+                              <a class="dropdown-item" data-toggle="modal" data-target="#modal-hapus-{{ $a->username }}-{{ $a->username }}">Hapus</a>
+                              <a class="dropdown-item" href="{{ route('prestasi', ['Username' => $a->username]) }}">Prestasi</a>
+                              <a class="dropdown-item" data-toggle="modal" data-target="#modal-dokumen-{{ $a->username }}">Dokumen</a>
+                              <a class="dropdown-item" href="{{ route('wali', ['Username' => $a->username]) }}">Data Wali</a>
+                            </div>
+                          </div>
+                      </tr>
+                    @endforeach
+
+                    @foreach ($User as $datauser)
+                    @foreach ($Biodata as $data)
+                      <div class="modal fade" id="modal-edit-{{ $data->username }}-{{ $datauser->username }}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Edit Data {{$data->username}}</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('anggota.update', ['Biodata' => $data->username]) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                      <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Nama</label>
+                                            <input type="text" class="form-control" name="name" value="{{$datauser->name}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input type="text" class="form-control" name="username" value="{{$data->username}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" name="password" value="{{$datauser->password}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Sabuk</label>
+                                            <select name="sabuk" class="form-control">
+                                            {{-- <input type="text" class="form-control" name="sabuk" value="{{$data->sabuk}}"> --}}
+                                                <option value="{{$data->sabuk}}">{{$data->sabuk}}</option>
+                                                <option value="Kuning">Kuning</option>
+                                                <option value="Hijau">Hijau</option>
+                                                <option value="Biru">Biru</option>
+                                                <option value="Oranye">Oranye</option>
+                                                <option value="Cokelat">Cokelat</option>
+                                                <option value="Merah">Merah</option>
+                                                <option value="Merah Hitam">Merah Hitam</option>
+                                                <option value="Hitam">Hitam</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tanggal Lahir</label>
+                                            <input type="date" class="form-control" name="tgl" value="{{$data->tgl_lahir}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Alamat</label>
+                                            <input type="text" class="form-control" name="alamat" value="{{$data->alamat}}">
+                                        </div>
+                                      </div>
+                                      <!-- /.card-body -->
+
+                                      <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                      </div>
+                                    </form>
+                            </div>
+
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+                    @endforeach
+                    @endforeach
+
+                    @foreach ($User as $datauser)
+                    @foreach ($Biodata as $data)
+                      <div class="modal fade" id="modal-hapus-{{ $data->username }}-{{ $datauser->username }}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Hapus Data</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form action="{{ route('anggota.destroy', ['Biodata' => $data->username]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Apakah Anda Yakin Ingin Menghapus Data {{ $data->username }}?</label>
+                                        <input type="hidden" class="form-control" id="hapus-username" name="username">
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                  <button type="submit" class="btn btn-danger">Hapus</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                    @endforeach
+                    @endforeach
+
+                    @foreach ($User as $datauser)
+                      <!-- /.modal -->
+                      <div class="modal fade" id="modal-dokumen-{{ $datauser->username }}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Dokumen Bersangkutan {{ $datauser->username }}</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="card-body">
+                                    <div class="form-group d-flex">
+                                        <ul>
+                                        @foreach ($Dokumen as $item)
+                                            @if($datauser->username == $item->username)
+                                            <ol>
+                                                <div>{{$item->kategori}}</div>
+                                                <div class="ml-auto">
+                                                    <a target="_blank" href="{{asset('file_upload')}}/{{$item->file}}"" class="btn btn-warning action-btn has-icon edit-btn">Lihat</a>
+                                                    <a class="btn btn-danger text-white action-btn has-icon delete-btn" data-toggle="modal" data-target="#modal-delete-{{ $item->id }}">Hapus</a>
+                                                </div>
+                                            </ol>
+                                            @endif
+                                        @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                                <form action="{{ route('dokumen.store', ['Username' => $datauser->username]) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Pilih File!</label><br>
+                                            <input type="file" id="myFile" name="file">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Kategori</label>
+                                                <select name="kategori" class="form-control">
+                                                    <option value="KTP">KTP</option>
+                                                    <option value="Akta Lahir">Akta Lahir</option>
+                                                    <option value="Resume">Resume</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Tambah</button>
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      <!-- /.modal -->
+                    @endforeach
+
+                    @foreach ($Dokumen as $item)
+                    <div class="modal fade" id="modal-delete-{{ $item->id }}">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Hapus Dokumen</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                            <form action="{{ route('dokumen.destroy', ['Id' => $item->id])}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Apakah Anda Yakin Ingin Menghapus Data {{$item->kategori}}?</label>
+                                        <input type="hidden" class="form-control" id="hapus-username" name="username">
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                  <button type="submit" class="btn btn-danger">Hapus</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                      @endforeach
+
+              <!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+      </div>
+
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Tambah Anggota</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('anggota.store') }}" method="POST">
+                @csrf
+                @method('POST')
+                  <div class="card-body">
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text" class="form-control" name="name" placeholder="Masukan Nama Anggota">
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" name="username" placeholder="Masukan Username">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Masukan Password">
+                    </div>
+                    <div class="form-group">
+                        <label>Sabuk</label>
+                            <select name="sabuk" class="form-control">
+                                <option value="Kuning">Kuning</option>
+                                <option value="Hijau">Hijau</option>
+                                <option value="Biru">Biru</option>
+                                <option value="Oranye">Oranye</option>
+                                <option value="Cokelat">Cokelat</option>
+                                <option value="Merah">Merah</option>
+                                <option value="Merah Hitam">Merah Hitam</option>
+                                <option value="Hitam">Hitam</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" class="form-control" name="tgl" placeholder="Masukan tanggal lahir">
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <input type="text" class="form-control" name="alamat" placeholder="Masukan Alamat">
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
 
 
 
-  </footer>
+    </footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
 
   <!-- jQuery -->
   <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>

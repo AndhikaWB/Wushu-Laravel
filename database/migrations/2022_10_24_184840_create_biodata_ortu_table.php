@@ -16,12 +16,9 @@ return new class extends Migration
         Schema::create('biodata_ortu', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
-            $table->string('nama_wali');
-            $table->string('no_hp');
+            $table->string('nama_wali')->nullable();
+            $table->string('no_hp')->nullable();
             $table->timestamps();
-
-            $table->foreign('username')
-              ->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

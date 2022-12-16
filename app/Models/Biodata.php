@@ -22,6 +22,7 @@ class Biodata extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'username',
         'sabuk',
         'tgl_lahir',
@@ -35,19 +36,18 @@ class Biodata extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'tgl_lahir' => 'date:Y-m-d',
-        'prestasi' => 'array',
+        // 'tgl_lahir' => 'date:Y-m-d',
     ];
 
-    public function user() {
-        return $this->belongsTo(User::class, 'username', 'username');
-    }
+    // public function user() {
+    //     return $this->belongsTo(User::class, 'username', 'username');
+    // }
 
-    public function dokumen() {
-        return $this->hasMany(Dokumen::class, 'username', 'username');
-    }
+    // public function dokumen() {
+    //     return $this->hasMany(Dokumen::class, 'username', 'username');
+    // }
 
-    public function biodata_ortu() {
-        return $this->hasOne(BiodataOrtu::class, 'username', 'username');
-    }
+    // public function biodata_ortu() {
+    //     return $this->hasOne(BiodataOrtu::class, 'username', 'username');
+    // }
 }
