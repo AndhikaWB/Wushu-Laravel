@@ -94,43 +94,6 @@
           </div>
       </section>
       <!-- /.row -->
-
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Daftar Lomba Yang Diikuti</h3><br>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="example2" class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>Nama Lomba</th>
-                        <th>Tanggal Pelaksanaan</th>
-                        <th>Anggota Terpilih</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Wushu Tahunan</td>
-                        <td>09-10-2021</td>
-                        <td>Rian</td>
-
-                      </tr>
-
-                    </tbody>
-
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-
-              <!-- /.container-fluid -->
-      </section>
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
