@@ -64,14 +64,14 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>50<sup style="font-size: 20px">Anggota</sup></h3>
+                  <h3>{{ $anggota }}<sup style="font-size: 20px">Anggota</sup></h3>
 
                   <p>Jumlah Anggota</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="Daftar anggota.html" class="small-box-footer">Info Lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('anggota') }}" class="small-box-footer">Info Lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -79,14 +79,14 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>10<sup style="font-size: 20px">Pelatih</sup></h3>
+                  <h3>{{ $pelatih }}<sup style="font-size: 20px">Pelatih</sup></h3>
 
                   <p>Jumlah Pelatih</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="Daftar anggota.html" class="small-box-footer">info Lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('anggota') }}" class="small-box-footer">info Lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
